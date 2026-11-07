@@ -1,13 +1,13 @@
 {
  "version": 2,
  "measures": {
-  "fuzzy_match_percent": 10.540632,
+  "fuzzy_match_percent": 10.560719,
   "total_code": "7546948",
-  "matched_code": "795496",
-  "matched_code_percent": 10.540632,
+  "matched_code": "797012",
+  "matched_code_percent": 10.560719,
   "total_functions": 16164,
-  "matched_functions": 6532,
-  "matched_functions_percent": 40.410789,
+  "matched_functions": 6535,
+  "matched_functions_percent": 40.429349,
   "complete_code": "195868",
   "complete_code_percent": 2.595327,
   "total_units": 419,
@@ -154,13 +154,13 @@
    "id": "level_code",
    "name": "Level code",
    "measures": {
-    "fuzzy_match_percent": 5.961865,
+    "fuzzy_match_percent": 5.983813,
     "total_code": "6907168",
-    "matched_code": "411796",
-    "matched_code_percent": 5.961865,
+    "matched_code": "413312",
+    "matched_code_percent": 5.983813,
     "total_functions": 13260,
-    "matched_functions": 4084,
-    "matched_functions_percent": 30.799397,
+    "matched_functions": 4087,
+    "matched_functions_percent": 30.822021,
     "complete_code": "0",
     "complete_code_percent": 0.0,
     "total_units": 38,
@@ -188,13 +188,13 @@
    "id": "levels",
    "name": "Level-specific code",
    "measures": {
-    "fuzzy_match_percent": 2.861603,
+    "fuzzy_match_percent": 2.912254,
     "total_code": "2993008",
-    "matched_code": "85648",
-    "matched_code_percent": 2.861603,
+    "matched_code": "87164",
+    "matched_code_percent": 2.912254,
     "total_functions": 5513,
-    "matched_functions": 961,
-    "matched_functions_percent": 17.431525,
+    "matched_functions": 964,
+    "matched_functions_percent": 17.485942,
     "complete_code": "0",
     "complete_code_percent": 0.0,
     "total_units": 37,
@@ -222,13 +222,13 @@
    "id": "level_02",
    "name": "Level 02: Florana",
    "measures": {
-    "fuzzy_match_percent": 2.690623,
+    "fuzzy_match_percent": 3.812456,
     "total_code": "135136",
-    "matched_code": "3636",
-    "matched_code_percent": 2.690623,
+    "matched_code": "5152",
+    "matched_code_percent": 3.812456,
     "total_functions": 67,
-    "matched_functions": 24,
-    "matched_functions_percent": 35.820896,
+    "matched_functions": 27,
+    "matched_functions_percent": 40.298507,
     "complete_code": "0",
     "complete_code_percent": 0.0,
     "total_units": 1,
@@ -107682,13 +107682,13 @@
   {
    "name": "Level 02: Florana",
    "measures": {
-    "fuzzy_match_percent": 2.690623,
+    "fuzzy_match_percent": 3.812456,
     "total_code": "135136",
-    "matched_code": "3636",
-    "matched_code_percent": 2.690623,
+    "matched_code": "5152",
+    "matched_code_percent": 3.812456,
     "total_functions": 67,
-    "matched_functions": 24,
-    "matched_functions_percent": 35.820896,
+    "matched_functions": 27,
+    "matched_functions_percent": 40.298507,
     "complete_code": "0",
     "complete_code_percent": 0.0,
     "total_units": 1,
@@ -107788,7 +107788,7 @@
     {
      "name": "func_L02_0034F710",
      "size": "580",
-     "fuzzy_match_percent": 0.0,
+     "fuzzy_match_percent": 100.0,
      "address": "244696",
      "metadata": {
       "virtual_address": "3471120"
@@ -107833,7 +107833,7 @@
     {
      "name": "func_L02_00350030",
      "size": "464",
-     "fuzzy_match_percent": 0.0,
+     "fuzzy_match_percent": 100.0,
      "address": "247032",
      "metadata": {
       "virtual_address": "3473456"
@@ -108175,7 +108175,7 @@
     {
      "name": "func_L02_003BBAC0",
      "size": "472",
-     "fuzzy_match_percent": 0.0,
+     "fuzzy_match_percent": 100.0,
      "address": "688008",
      "metadata": {
       "virtual_address": "3914432"
