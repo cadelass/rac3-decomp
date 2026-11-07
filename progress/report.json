@@ -1,13 +1,13 @@
 {
  "version": 2,
  "measures": {
-  "fuzzy_match_percent": 10.421219,
+  "fuzzy_match_percent": 10.425512,
   "total_code": "7546948",
-  "matched_code": "786484",
-  "matched_code_percent": 10.421219,
+  "matched_code": "786808",
+  "matched_code_percent": 10.425512,
   "total_functions": 16164,
-  "matched_functions": 6511,
-  "matched_functions_percent": 40.280871,
+  "matched_functions": 6517,
+  "matched_functions_percent": 40.317991,
   "complete_code": "195868",
   "complete_code_percent": 2.595327,
   "total_units": 419,
@@ -154,13 +154,13 @@
    "id": "level_code",
    "name": "Level code",
    "measures": {
-    "fuzzy_match_percent": 5.831391,
+    "fuzzy_match_percent": 5.836082,
     "total_code": "6907168",
-    "matched_code": "402784",
-    "matched_code_percent": 5.831391,
+    "matched_code": "403108",
+    "matched_code_percent": 5.836082,
     "total_functions": 13260,
-    "matched_functions": 4063,
-    "matched_functions_percent": 30.641026,
+    "matched_functions": 4069,
+    "matched_functions_percent": 30.686275,
     "complete_code": "0",
     "complete_code_percent": 0.0,
     "total_units": 38,
@@ -188,13 +188,13 @@
    "id": "levels",
    "name": "Level-specific code",
    "measures": {
-    "fuzzy_match_percent": 2.560501,
+    "fuzzy_match_percent": 2.571326,
     "total_code": "2993008",
-    "matched_code": "76636",
-    "matched_code_percent": 2.560501,
+    "matched_code": "76960",
+    "matched_code_percent": 2.571326,
     "total_functions": 5513,
-    "matched_functions": 940,
-    "matched_functions_percent": 17.050608,
+    "matched_functions": 946,
+    "matched_functions_percent": 17.159441,
     "complete_code": "0",
     "complete_code_percent": 0.0,
     "total_units": 37,
@@ -239,13 +239,13 @@
    "id": "level_03",
    "name": "Level 03: Starship Phoenix",
    "measures": {
-    "fuzzy_match_percent": 6.118765,
+    "fuzzy_match_percent": 6.417152,
     "total_code": "108584",
-    "matched_code": "6644",
-    "matched_code_percent": 6.118765,
+    "matched_code": "6968",
+    "matched_code_percent": 6.417152,
     "total_functions": 293,
-    "matched_functions": 84,
-    "matched_functions_percent": 28.668942,
+    "matched_functions": 90,
+    "matched_functions_percent": 30.716724,
     "complete_code": "0",
     "complete_code_percent": 0.0,
     "total_units": 1,
@@ -108312,13 +108312,13 @@
   {
    "name": "Level 03: Starship Phoenix",
    "measures": {
-    "fuzzy_match_percent": 6.118765,
+    "fuzzy_match_percent": 6.417152,
     "total_code": "108584",
-    "matched_code": "6644",
-    "matched_code_percent": 6.118765,
+    "matched_code": "6968",
+    "matched_code_percent": 6.417152,
     "total_functions": 293,
-    "matched_functions": 84,
-    "matched_functions_percent": 28.668942,
+    "matched_functions": 90,
+    "matched_functions_percent": 30.716724,
     "complete_code": "0",
     "complete_code_percent": 0.0,
     "total_units": 1,
@@ -108724,7 +108724,7 @@
     {
      "name": "func_L03_0032F670",
      "size": "56",
-     "fuzzy_match_percent": 0.0,
+     "fuzzy_match_percent": 100.0,
      "address": "55456",
      "metadata": {
       "virtual_address": "3339888"
@@ -108760,7 +108760,7 @@
     {
      "name": "func_L03_0032F790",
      "size": "64",
-     "fuzzy_match_percent": 0.0,
+     "fuzzy_match_percent": 100.0,
      "address": "55744",
      "metadata": {
       "virtual_address": "3340176"
@@ -108805,7 +108805,7 @@
     {
      "name": "func_L03_0032FA18",
      "size": "52",
-     "fuzzy_match_percent": 0.0,
+     "fuzzy_match_percent": 100.0,
      "address": "56392",
      "metadata": {
       "virtual_address": "3340824"
@@ -109777,7 +109777,7 @@
     {
      "name": "func_L03_003A2360",
      "size": "56",
-     "fuzzy_match_percent": 0.0,
+     "fuzzy_match_percent": 100.0,
      "address": "525712",
      "metadata": {
       "virtual_address": "3810144"
@@ -110011,7 +110011,7 @@
     {
      "name": "func_L03_003B05B0",
      "size": "60",
-     "fuzzy_match_percent": 0.0,
+     "fuzzy_match_percent": 100.0,
      "address": "583648",
      "metadata": {
       "virtual_address": "3868080"
@@ -110326,7 +110326,7 @@
     {
      "name": "func_L03_003B2C08",
      "size": "36",
-     "fuzzy_match_percent": 0.0,
+     "fuzzy_match_percent": 100.0,
      "address": "593464",
      "metadata": {
       "virtual_address": "3877896"
