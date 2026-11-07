@@ -1,13 +1,13 @@
 {
  "version": 2,
  "measures": {
-  "fuzzy_match_percent": 10.431237,
+  "fuzzy_match_percent": 10.435212,
   "total_code": "7546948",
-  "matched_code": "787240",
-  "matched_code_percent": 10.431237,
+  "matched_code": "787540",
+  "matched_code_percent": 10.435212,
   "total_functions": 16164,
-  "matched_functions": 6523,
-  "matched_functions_percent": 40.35511,
+  "matched_functions": 6526,
+  "matched_functions_percent": 40.37367,
   "complete_code": "195868",
   "complete_code_percent": 2.595327,
   "total_units": 419,
@@ -154,13 +154,13 @@
    "id": "level_code",
    "name": "Level code",
    "measures": {
-    "fuzzy_match_percent": 5.842337,
+    "fuzzy_match_percent": 5.84668,
     "total_code": "6907168",
-    "matched_code": "403540",
-    "matched_code_percent": 5.842337,
+    "matched_code": "403840",
+    "matched_code_percent": 5.84668,
     "total_functions": 13260,
-    "matched_functions": 4075,
-    "matched_functions_percent": 30.731523,
+    "matched_functions": 4078,
+    "matched_functions_percent": 30.754148,
     "complete_code": "0",
     "complete_code_percent": 0.0,
     "total_units": 38,
@@ -188,13 +188,13 @@
    "id": "levels",
    "name": "Level-specific code",
    "measures": {
-    "fuzzy_match_percent": 2.58576,
+    "fuzzy_match_percent": 2.595783,
     "total_code": "2993008",
-    "matched_code": "77392",
-    "matched_code_percent": 2.58576,
+    "matched_code": "77692",
+    "matched_code_percent": 2.595783,
     "total_functions": 5513,
-    "matched_functions": 952,
-    "matched_functions_percent": 17.268275,
+    "matched_functions": 955,
+    "matched_functions_percent": 17.322692,
     "complete_code": "0",
     "complete_code_percent": 0.0,
     "total_units": 37,
@@ -239,13 +239,13 @@
    "id": "level_03",
    "name": "Level 03: Starship Phoenix",
    "measures": {
-    "fuzzy_match_percent": 6.815,
+    "fuzzy_match_percent": 7.091284,
     "total_code": "108584",
-    "matched_code": "7400",
-    "matched_code_percent": 6.815,
+    "matched_code": "7700",
+    "matched_code_percent": 7.091284,
     "total_functions": 293,
-    "matched_functions": 96,
-    "matched_functions_percent": 32.764505,
+    "matched_functions": 99,
+    "matched_functions_percent": 33.788396,
     "complete_code": "0",
     "complete_code_percent": 0.0,
     "total_units": 1,
@@ -108312,13 +108312,13 @@
   {
    "name": "Level 03: Starship Phoenix",
    "measures": {
-    "fuzzy_match_percent": 6.815,
+    "fuzzy_match_percent": 7.091284,
     "total_code": "108584",
-    "matched_code": "7400",
-    "matched_code_percent": 6.815,
+    "matched_code": "7700",
+    "matched_code_percent": 7.091284,
     "total_functions": 293,
-    "matched_functions": 96,
-    "matched_functions_percent": 32.764505,
+    "matched_functions": 99,
+    "matched_functions_percent": 33.788396,
     "complete_code": "0",
     "complete_code_percent": 0.0,
     "total_units": 1,
@@ -108382,7 +108382,7 @@
     {
      "name": "func_L03_0032C890",
      "size": "104",
-     "fuzzy_match_percent": 0.0,
+     "fuzzy_match_percent": 100.0,
      "address": "43712",
      "metadata": {
       "virtual_address": "3328144"
@@ -108517,7 +108517,7 @@
     {
      "name": "func_L03_0032DB58",
      "size": "100",
-     "fuzzy_match_percent": 0.0,
+     "fuzzy_match_percent": 100.0,
      "address": "48520",
      "metadata": {
       "virtual_address": "3332952"
@@ -109147,7 +109147,7 @@
     {
      "name": "func_L03_003975A8",
      "size": "96",
-     "fuzzy_match_percent": 0.0,
+     "fuzzy_match_percent": 100.0,
      "address": "481240",
      "metadata": {
       "virtual_address": "3765672"
