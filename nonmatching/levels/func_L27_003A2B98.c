@@ -43,8 +43,8 @@ void func_L27_003A2B98(S_2B98_O *self) {
         v.z = 0;
         v.w = 1.0f;
         vec_add_ba(&b->v10, &a->v10, &v);
-        b->h34 &= 0xFFBE;
         b->vF0 = a->vF0;
+        b->h34 &= 0xFFBE;
         b->h34 |= b->f24->h44 & 0x1000;
         b->f98 = b->f24->f10;
         b->h34 &= 0xFFFD;

@@ -98,7 +98,7 @@ extern void func_0038CAD0(void *);
 extern void func_L01_00404808(void *, void *);
 extern void func_003A4F28(s32);
 extern s32 func_L01_004AADE8(s32, s32, void *, s32);
-extern void func_L27_003A3498(void);
+extern void func_L27_003A3498();
 
 void func_L27_003A3098(S_3098_O *self) {
     S_3098_D *d = self->f68;
@@ -163,4 +163,102 @@ void func_L27_003A3098(S_3098_O *self) {
 
 INCLUDE_ASM("asm/levels", func_L27_003A3310);
 
-INCLUDE_ASM("asm/levels", func_L27_003A3498);
+/* localdecomp:start func_L27_003A3498 */
+typedef struct { f32 x, y, z, w; } __attribute__((aligned(16))) V4_3A3498;
+typedef struct {
+    f32 m[4][4];
+    s32 c40, c44, c48, c4C;
+    s32 x50, x54, x58;
+    f32 x5C, x60;
+    s32 x64;
+    f32 x68, x6C;
+    long x70, x78, x80, x88;
+    V4_3A3498 r[4];
+} S_3A3498;
+typedef struct { u8 p0[0x10]; s32 f10; } S_3A3498_D;
+typedef struct { u8 p0[0x68]; S_3A3498_D *f68; } S_3A3498_O;
+
+extern void func_003D93B0(void *, s32, s32, long);
+extern void func_0038D570(void *, void *);
+extern void func_0038D328(void *, void *);
+extern void func_0038D640(void *, void *, void *);
+extern void func_003D2DA0(S_3A3498 *, V4_3A3498 *, s32);
+extern s16 *D_L27_0021B7E0[];
+extern u8 *D_L27_001DED1C;
+__asm__(".extern D_L27_001DED1C, 16");
+extern s32 D_L27_001DE8C0;
+extern s32 D_001DED58_sda;
+__asm__(".extern D_001DED58_sda, 4");
+
+void func_L27_003A3498(S_3A3498_O *self) {
+    S_3A3498 s;
+    V4_3A3498 axis;
+    V4_3A3498 m2[4];
+    S_3A3498_D *d;
+    s16 *q;
+    u8 *t;
+
+    d = self->f68;
+    func_003D93B0(&s, 0x16, 1, 0x80);
+    s.x50 = 0;
+    s.x54 = 0;
+    s.x58 = 0;
+    s.x5C = 1.0f;
+    s.x60 = 1.0f;
+    s.x64 = 0;
+    s.x68 = 1.0f;
+    s.x6C = 1.0f;
+    s.c44 = 0x80;
+    s.c40 = 0x80;
+    s.c4C = 0x60000080;
+    s.c48 = 0x60000080;
+    q = D_L27_0021B7E0[d->f10];
+    while ((d->f10 & 0xFF) != 0xFF && d->f10 <= D_001DED58_sda && q != 0 &&
+           (q[-1] >= 0 || q == D_L27_0021B7E0[d->f10])) {
+        t = D_L27_001DED1C + ((*(u16 *)q & 0x7FFF) << 8);
+        if (t == 0) break;
+        func_0038D570(s.r, t + 0xC0);
+        s.r[3] = *(V4_3A3498 *)(t + 0x10);
+        s.r[3].w = 1.0f;
+        qzero(&axis);
+        axis.z = (f32)(D_L27_001DE8C0 % 90) * 6.2831855f / 90.0f + -3.1415927f;
+        func_0038D328(m2, &axis);
+        func_0038D640(s.r, s.r, m2);
+        s.m[0][0] = 0;
+        s.m[0][1] = 1.5f;
+        s.m[0][2] = 0.2f;
+        s.m[0][3] = 1.0f;
+        s.m[1][0] = 1.5f;
+        s.m[1][1] = 0;
+        s.m[1][2] = 0.2f;
+        s.m[1][3] = 1.0f;
+        s.m[2][0] = 0;
+        s.m[2][1] = 0.1f;
+        s.m[2][2] = 0.2f;
+        s.m[2][3] = 1.0f;
+        s.m[3][0] = 0.1f;
+        s.m[3][1] = 0;
+        s.m[3][2] = 0.2f;
+        s.m[3][3] = 1.0f;
+        func_003D2DA0(&s, s.r, 1);
+        s.m[0][0] = 0;
+        s.m[0][1] = -1.5f;
+        s.m[0][2] = 0.2f;
+        s.m[0][3] = 1.0f;
+        s.m[1][0] = -1.5f;
+        s.m[1][1] = 0;
+        s.m[1][2] = 0.2f;
+        s.m[1][3] = 1.0f;
+        s.m[2][0] = 0;
+        s.m[2][1] = -0.1f;
+        s.m[2][2] = 0.2f;
+        s.m[2][3] = 1.0f;
+        s.m[3][0] = -0.1f;
+        s.m[3][1] = 0;
+        s.m[3][2] = 0.2f;
+        s.m[3][3] = 1.0f;
+        func_003D2DA0(&s, s.r, 1);
+        q++;
+    }
+}
+/* localdecomp:end func_L27_003A3498 */
