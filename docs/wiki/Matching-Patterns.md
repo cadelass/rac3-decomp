@@ -988,3 +988,62 @@ Found while matching 17 functions of `src/levels/05_daxx/` (one function per age
 - **The catalogue cuts the function's own delay slot:** `func_L05_0047FF20` matches every instruction, but the catalogue gives it 0x11C bytes and a `LINKER_REMNANT` on its `jr` delay slot, so the 0x120-byte C shifts the next function (same class as `func_L01_00350040`).
 - **Scheduler ties** that no wording or prototype order moved: `func_L05_003AFC08` (2: `abs.s` against `addiu $a1,$zero,2`), `func_L05_003DC5B8` (2: a stack-argument `sw` against a `lui`, 512 prototype orders tried).
 - **cse merges a base address across blocks:** `func_L05_003E63C0` (10): retail recomputes `base + off` base-first in the second block; every form tried was merged with the first block's sum or folded the offset into the constant.
+
+## Patterns from level 27 (Aquatos Base, PAL)
+
+Found while matching 2 functions of `src/levels/27_aquatos_base/` and leaving 13 near misses
+(5 of the level's 15 were real VU0; the two giants were reconstructed only partially). Only what
+is new compared with the level 1 to 5 sections above.
+
+### Declarations and address forms
+
+- **`X[0]` on an unsized array gets cc1's split `lui`/`lw`.** An absolute scalar declared
+  `extern s32 X;` with `__asm__(".extern X, 16")` makes Ps2EeAs expand a bare-symbol load into
+  one `lui`/`lw` macro in the same register. Declaring it `extern s32 X[];` and reading `X[0]`
+  makes cc1 emit `lui $t, %hi` + `lw $d, %lo($t)` itself, which is what retail had where an
+  independent `li` is scheduled between the halves (`func_L27_003A1250`,
+  `D_L27_001E59F0`).
+- **`u128_t` casts, not a struct copy, for `lq`/`sq` when the pointer globals must be reloaded.**
+  `*(u128_t *)dst = *(u128_t *)src;` does not let gcc CSE two function-pointer globals across
+  the store, so retail's reloads survive; a `vu0_v4` struct assignment does (`func_L27_003A17B0`).
+- **A 4-byte pointer read in a `bltz` delay slot becomes `$gp` under `@ps2as`.** Add
+  `__attribute__((section(".data")))` to the declaration to keep retail's `lui`/`lw` pair
+  (`func_L27_003A2548`).
+- **A negative constant must be written as a negative literal.** `... / 90.0f + -3.1415927f`
+  emits `add.s` with `0xC0490FDB`, and `a.z += -15.0f` emits `add.s -15.0`; writing
+  `- 3.1415927f` or `-=` gives `sub.s` with the positive constant (`func_L27_003A3498`,
+  `func_L27_003A1B30`).
+- **A 32-bit sign mask as a `long`.** `(x & 0x80000000) == 0` folds to `bltz`; write
+  `long m = -2147483648; if ((v & m) == 0)` to get retail's single `lui` mask, `and`, `bne`
+  (`func_L27_003A2548`).
+- **A separate tail pointer local changes the tail's allocation.** In `func_L27_003FCDE0`,
+  reusing the loop's `u8 *m` for the `mobys[2]` load gives a three-word diff; a new tail local
+  `u8 *p` matches (the level 11 twin, `func_L11_003FCE88`, has the same shape).
+
+### Switches
+
+- **SN cc1's switch threshold is 5.** `HAVE_casesi` is 0, so `CASE_VALUES_THRESHOLD` is 5: a
+  switch with 5 grouped case nodes and a dense span (range <= 10 * count) becomes a jump table,
+  while 4 nodes or a wide span becomes a balanced compare tree. Retail's 5-way type dispatch in
+  `func_L27_0041F918` is a tree, so the source needs a raised node count: adding two far empty
+  labels (`case 100: case 101: break;`, which `group_case_nodes` merges into a range node)
+  reproduces retail's tree shape. Both of its switches need this.
+- **Shared tails in a tree-ish dispatch are explicit `goto`s.** Retail shares the `4pi/3*r^3`
+  block between types 0/1 and 2, and the rejection-sampling block between types 0/1/2; writing
+  the shared bodies once and jumping to them saved about 45 instructions (`func_L27_0041F918`).
+
+### Open problems (drafts in `nonmatching/levels/`)
+
+- **Catalogue-cut delay slots:** `func_L27_00410028` (1 diff; `sltiu` is the 4-byte remnant
+  `func_L27_00410030`) and `func_L27_0041F918` (catalogue's `jr` delay slot is a
+  `LINKER_REMNANT`).
+- **Register/store-order residue:** `func_L27_003A3310` (2, the two loads around the second
+  call), `func_L27_003A2B98` (3, the `D_L27_001DEE00` load schedule), `func_L27_003A43A8`
+  (9, cross-jumped `return 1` tail), `func_L27_003A1250` (12, three register/store spots),
+  `func_L27_00473230` (13, in-place `i++`), `func_L27_003A17B0` (17, two allocation swaps),
+  `func_L27_003A1B30` (63 with its `divs_nops` row, 12 real instructions of scheduling).
+- **Larger reconstructions:** `func_L27_00375CD0` (389, prologue allocation),
+  `func_L27_003A2548` (400, allocation cascade and missing reloads), `func_L27_0041F918`
+  (436, entry-pointer allocation). The two giants `func_L27_004D7CD8` and `func_L27_004CA9C8`
+  have partial skeletons; the latter is 0.991 identical to `nonmatching/levels/func_L08_004D6580.c`,
+  which is the shortest path to its missing bodies.
