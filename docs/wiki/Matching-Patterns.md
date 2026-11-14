@@ -1000,3 +1000,39 @@ Found while matching 17 functions of `src/levels/05_daxx/` (one function per age
 - **Give a small table its real size under `@ps2as` when retail's `lui`/`addiu` are adjacent.** `func_L07_00333C70` needs `extern s32 D_L07_001DF600[2];`: the unsized `[]` leaves gcc's split pair scheduled apart (2 differences), while the two-element declaration is one `la` macro that Ps2EeAs expands adjacently.
 - **Open problem: a table's high temp can take the loop counter's register.** `func_L07_003328D0` stays at 11 differences: local-alloc gives `D_001E0CD0`'s high temporary `$4` where retail has `$5`, which moves the counter to `$5` and reorders the three hoisted address groups. About 90 wordings (pointer and index loops in both directions, `u8 *`/`s32 *` types, a destination pointer, early returns, temporaries) did not change that choice.
 - **Split a byte swap into two named `u8` locals.** `func_L07_00334968` needs `u8 a = arg0[i]; u8 b = arg0[j]; arg0[j] = a; arg0[i] = b;`; writing the swap inline or through one temporary left 4 differences in the load/store assignment and registers.
+
+## Patterns from level 30 (Vid-comic unnamed, PAL)
+
+Found while matching one function of `src/levels/30_vidcomic_unnamed/` (one function per
+agent), after attempting all three unclaimed functions and escalating two near misses.
+The other 41 local `INCLUDE_ASM` functions were reserved and were not attempted. Only
+what is new compared with the sections above.
+
+### Address expressions
+
+- **Integer address arithmetic can change the base's scratch register, not just the
+  `addu` operand order.** This is an allocation variant of "Which register comes first
+  in `addu`" above. In `func_L30_003496D8`, compare the object's signed halfword against
+  `*(s16 *)((*(s32 *)(p + 0x104) << 8) + (s32)D_001DF71C_sda + 0xAA)` rather than a
+  pointer-based table expression. The integer form gives the loaded table base `$a0`
+  and leaves the compared object in `$v1`; keeping the object's field on the left of
+  `==` also gives retail's `beql $a1,$v1`. Together with a `void` return and the
+  block-local float load before the byte store, the draft went from 26 differences
+  to `MATCH`, confirmed by the complete level build. The existing file flags suffice.
+
+### Open problems (drafts in `nonmatching/levels/`)
+
+- **Independent VU0 stores and epilogue restores:** `func_L30_003427F8` is five
+  differences of 98 words with the owning file's flags plus `-mvu0-use-vf0-vf2`
+  (the file already uses `@ps2as`). Retail stores the quadword at `sp+0x40` before
+  `sp+0x20`; the draft reverses them and restores `$s2`/`$ra` earlier. Tail statement,
+  load and helper-order permutations did not move this scheduler tie. No `div.s`
+  or `sqrt.s` is involved. The owning file's flags are unchanged.
+- **High-address and reload register choice:** `func_L30_0037E5D0` is four differences
+  of 437 words with `@ps2as` and `-mvu0-use-vf0-vf2`. A scalar declaration for
+  `D_L30_001D673C` and reuse of the copied object's pointer reduced seven differences
+  to four, applying the existing scalar/array and variable-reuse recipes. The high
+  temporary at `0x0037EB6C/70` and the `out3` reload/store register at
+  `0x0037EBC4/0x0037EBE8` still differ after three formulations with identical residual
+  bytes. Its counted `divs_nops` row `2 1 2` is present and is not the residual.
+  The owning file's flags are unchanged.
