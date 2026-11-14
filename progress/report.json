@@ -1,13 +1,13 @@
 {
  "version": 2,
  "measures": {
-  "fuzzy_match_percent": 36.644024,
+  "fuzzy_match_percent": 37.302253,
   "total_code": "7538408",
-  "matched_code": "2762376",
-  "matched_code_percent": 36.644024,
+  "matched_code": "2811996",
+  "matched_code_percent": 37.302253,
   "total_functions": 16124,
-  "matched_functions": 10089,
-  "matched_functions_percent": 62.571322,
+  "matched_functions": 10093,
+  "matched_functions_percent": 62.59613,
   "complete_code": "186652",
   "complete_code_percent": 2.476014,
   "total_units": 450,
@@ -154,13 +154,13 @@
    "id": "level_code",
    "name": "Level code",
    "measures": {
-    "fuzzy_match_percent": 34.251854,
+    "fuzzy_match_percent": 34.971128,
     "total_code": "6898628",
-    "matched_code": "2362908",
-    "matched_code_percent": 34.251854,
+    "matched_code": "2412528",
+    "matched_code_percent": 34.971128,
     "total_functions": 13220,
-    "matched_functions": 7624,
-    "matched_functions_percent": 57.670197,
+    "matched_functions": 7628,
+    "matched_functions_percent": 57.700454,
     "complete_code": "0",
     "complete_code_percent": 0.0,
     "total_units": 37,
@@ -188,13 +188,13 @@
    "id": "levels",
    "name": "Level-specific code",
    "measures": {
-    "fuzzy_match_percent": 44.763808,
+    "fuzzy_match_percent": 46.426527,
     "total_code": "2984268",
-    "matched_code": "1335872",
-    "matched_code_percent": 44.763808,
+    "matched_code": "1385492",
+    "matched_code_percent": 46.426527,
     "total_functions": 5475,
-    "matched_functions": 3197,
-    "matched_functions_percent": 58.392694,
+    "matched_functions": 3201,
+    "matched_functions_percent": 58.465753,
     "complete_code": "0",
     "complete_code_percent": 0.0,
     "total_units": 36,
@@ -613,13 +613,13 @@
    "id": "level_27",
    "name": "Level 27: Aquatos Base",
    "measures": {
-    "fuzzy_match_percent": 33.560971,
+    "fuzzy_match_percent": 97.739148,
     "total_code": "77316",
-    "matched_code": "25948",
-    "matched_code_percent": 33.560971,
+    "matched_code": "75568",
+    "matched_code_percent": 97.739148,
     "total_functions": 25,
-    "matched_functions": 20,
-    "matched_functions_percent": 80.0,
+    "matched_functions": 24,
+    "matched_functions_percent": 96.0,
     "complete_code": "0",
     "complete_code_percent": 0.0,
     "total_units": 1,
@@ -130048,13 +130048,13 @@
   {
    "name": "Level 27: Aquatos Base",
    "measures": {
-    "fuzzy_match_percent": 33.560971,
+    "fuzzy_match_percent": 97.739148,
     "total_code": "77316",
-    "matched_code": "25948",
-    "matched_code_percent": 33.560971,
+    "matched_code": "75568",
+    "matched_code_percent": 97.739148,
     "total_functions": 25,
-    "matched_functions": 20,
-    "matched_functions_percent": 80.0,
+    "matched_functions": 24,
+    "matched_functions_percent": 96.0,
     "complete_code": "0",
     "complete_code_percent": 0.0,
     "total_units": 1,
@@ -130118,7 +130118,7 @@
     {
      "name": "func_L27_003A1B30",
      "size": "2584",
-     "fuzzy_match_percent": 0.0,
+     "fuzzy_match_percent": 100.0,
      "address": "179808",
      "metadata": {
       "virtual_address": "3808048"
@@ -130244,7 +130244,7 @@
     {
      "name": "func_L27_00473230",
      "size": "608",
-     "fuzzy_match_percent": 0.0,
+     "fuzzy_match_percent": 100.0,
      "address": "1037664",
      "metadata": {
       "virtual_address": "4665904"
@@ -130262,7 +130262,7 @@
     {
      "name": "func_L27_004CA9C8",
      "size": "21992",
-     "fuzzy_match_percent": 0.0,
+     "fuzzy_match_percent": 100.0,
      "address": "1395960",
      "metadata": {
       "virtual_address": "5024200"
@@ -130280,7 +130280,7 @@
     {
      "name": "func_L27_004D7CD8",
      "size": "24436",
-     "fuzzy_match_percent": 0.0,
+     "fuzzy_match_percent": 100.0,
      "address": "1449992",
      "metadata": {
       "virtual_address": "5078232"
