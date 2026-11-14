@@ -55,9 +55,70 @@ void func_L39_006626E8(N_65FE10 *n) {
 }
 /* localdecomp:end func_L39_006626E8 */
 
-INCLUDE_ASM("asm/levels", func_L39_00662748);
+/* localdecomp:start func_L39_00662748 */
+extern u8 D_1A5CD0[];
+__asm__(".extern D_L39_0024D75C, 16");
+extern s32 D_L39_0024D75C;
+extern void func_L39_006629B0(u8 *a0);
 
-INCLUDE_ASM("asm/levels", func_L39_00662830);
+void func_L39_00662748(void) {
+    N_65FDA0 *p = D_L39_002461F4;
+    N_65FDA0 *prev = 0;
+    N_65FDA0 *rem = 0;
+    while (p) {
+        u8 *g = D_1A5CD0;
+        if (p->b55 == 0 && p->w4 + (s32)(p->w0 >> 13) <= *(s32 *)(g + 0x128)) {
+            N_65FDA0 *n = p->next;
+            if (prev == 0) {
+                D_L39_002461F4 = n;
+            } else {
+                prev->next = n;
+            }
+            p->next = rem;
+            rem = p;
+            p = n;
+        } else {
+            prev = p;
+            p = p->next;
+        }
+    }
+    while (rem) {
+        p = rem;
+        if (*(s32 *)((u8 *)rem + 0x50) == -1 || *(s32 *)((u8 *)rem + 0x50) == D_L39_0024D75C) {
+            func_L39_006629B0((u8 *)rem);
+        }
+        rem = rem->next;
+        func_L39_00662A18((u8 *)p);
+    }
+}
+/* localdecomp:end func_L39_00662748 */
+
+/* localdecomp:start func_L39_00662830 */
+typedef struct S_00662830G { u8 pad0[4]; s32 f4; u8 pad8[0x120]; s32 f128; u8 pad12C[0x44]; s32 f170; u8 pad174[0x660]; u8 b7D4; } S_00662830G;
+typedef struct N_00662830 { u8 pad0[0x4C]; s32 f4C; s32 f50; u8 pad54; u8 b55; u8 pad56[2]; struct N_00662830 *next; } N_00662830;
+extern N_00662830 *D_001DAAE4_sda;
+extern u8 D_1A5CD0[];
+__asm__(".extern D_L39_0024D75C, 16");
+extern s32 D_L39_0024D75C;
+__asm__(".extern D_L39_002405D8, 16");
+extern s32 D_L39_002405D8;
+extern u32 func_L39_00662BC8(u32 *);
+extern void func_0014AD08(s32, s32, s32, s32, s32, void *);
+
+void func_L39_00662830(void) {
+    N_00662830 *n = D_001DAAE4_sda;
+    while (n != 0) {
+        if (n->b55 != 0 && ((S_00662830G *)D_1A5CD0)->f128 >= n->f4C) {
+            if (n->f50 != D_L39_0024D75C && ((S_00662830G *)D_1A5CD0)->f170 == 0) {
+                s32 a = ((S_00662830G *)D_1A5CD0)->b7D4 | 0x40;
+                func_0014AD08(a, ((S_00662830G *)D_1A5CD0)->f4, n->f50, D_L39_002405D8, func_L39_00662BC8((u32 *)n), n);
+            }
+            n->b55 = 0;
+        }
+        n = n->next;
+    }
+}
+/* localdecomp:end func_L39_00662830 */
 
 /* localdecomp:start func_L39_006628F0 */
 extern u8 D_1A5CD0[];
@@ -241,58 +302,3 @@ void func_L39_00663900(u8 *a0)
     func_L39_005C34A8(*(u8 **)(a0 + 9524), *(u8 **)(a0 + 9560) + 3148, 20);
 }
 /* localdecomp:end func_L39_00663900 */
-
-INCLUDE_ASM("asm/levels", func_L39_00663950);
-
-INCLUDE_ASM("asm/levels", func_L39_00663C80);
-
-INCLUDE_ASM("asm/levels", func_L39_00663DA8);
-
-INCLUDE_ASM("asm/levels", func_L39_00664760);
-
-INCLUDE_ASM("asm/levels", func_L39_00665568);
-
-/* localdecomp:start func_L39_00665C18 */
-void func_L39_00665C18(u8 *a0, s32 a1) {
-    s32 off = a1 * 0x50;
-    if (*(u32 *)(*(u8 **)(a0 + 0x2534) + 0x1A0) & *(u32 *)(a0 + off + 0x460)) {
-        a0[off + 0x458] = 1;
-    } else {
-        a0[off + 0x458] = 0;
-    }
-}
-/* localdecomp:end func_L39_00665C18 */
-
-INCLUDE_ASM("asm/levels", func_L39_00665C50);
-
-/* localdecomp:start func_L39_00665C80 */
-s32 func_L39_00665C80(u8 *a0) {
-    if ((a0[9567] != 255 && a0[9565] == 23) || (u32)(*(s32 *)(a0 + 19852) - 23) < 3) return 1;
-    return 0;
-}
-/* localdecomp:end func_L39_00665C80 */
-
-/* localdecomp:start func_L39_00665CC0 */
-s32 func_L39_00665CC0(u8 *a, s32 k) {
-    if ((a[9567] != 255 && a[9565] == 57) || k == *(s32 *)(a + 19852)) {
-        return 1;
-    }
-    return 0;
-}
-/* localdecomp:end func_L39_00665CC0 */
-
-INCLUDE_ASM("asm/levels", func_L39_00665CF8);
-
-INCLUDE_ASM("asm/levels", func_L39_00666160);
-
-INCLUDE_ASM("asm/levels", func_L39_00666518);
-
-INCLUDE_ASM("asm/levels", func_L39_00666E48);
-
-INCLUDE_ASM("asm/levels", func_L39_00666F58);
-
-/* localdecomp:start func_L39_00666F70 */
-s32 func_L39_00666F70(u8 *a0, s32 a1) {
-    return *(s32 *)(a0 + 0x32C) == a1;
-}
-/* localdecomp:end func_L39_00666F70 */

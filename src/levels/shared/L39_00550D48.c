@@ -85,19 +85,3 @@ s32 func_L39_00551918(u8 *a0) {
 /* localdecomp:end func_L39_00551918 */
 
 INCLUDE_ASM("asm/levels", func_L39_00551A38);
-
-INCLUDE_ASM("asm/levels", func_L39_00551F68);
-
-INCLUDE_ASM("asm/levels", func_L39_00552070);
-
-INCLUDE_ASM("asm/levels", func_L39_005521F8);
-
-INCLUDE_ASM("asm/levels", func_L39_00552750);
-
-INCLUDE_ASM("asm/levels", func_L39_00552920);
-
-INCLUDE_ASM("asm/levels", func_L39_00553148);
-
-INCLUDE_ASM("asm/levels", func_L39_005537B8);
-
-INCLUDE_ASM("asm/levels", func_L39_00553C30);

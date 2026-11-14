@@ -11,20 +11,3 @@ void func_L39_006C5518(void *object, s32 flags)
     func_L39_00688400(object, flags);
 }
 /* localdecomp:end func_L39_006C5518 */
-
-INCLUDE_ASM("asm/levels", func_L39_006C5540);
-
-/* localdecomp:start func_L39_006C5B30 */
-extern void func_L39_0068ADC8(void *);
-extern void func_L39_006C5B30(void *);
-
-extern void func_L39_0067F168();
-void func_L39_006C5B30(void *p) {
-    func_L39_0067F168(p);
-    func_L39_0068ADC8(p);
-}
-/* localdecomp:end func_L39_006C5B30 */
-
-INCLUDE_ASM("asm/levels", func_L39_006C5B60);
-
-INCLUDE_ASM("asm/levels", func_L39_006C5CC8);

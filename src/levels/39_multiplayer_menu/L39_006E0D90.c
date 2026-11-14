@@ -67,11 +67,38 @@ f32 func_L39_006E0EF0(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
 }
 /* localdecomp:end func_L39_006E0EF0 */
 
-INCLUDE_ASM("asm/levels", func_L39_006E0F78);
+/* localdecomp:start func_L39_006E0F78 */
+__asm__(".extern D_L39_0024A0D0, 16");
+extern void *D_L39_0024A0D0;
+__asm__(".extern D_L39_0024A0C8, 16");
+extern void *D_L39_0024A0C8;
+
+f32 func_L39_006E0F78(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
+    f32 a = ((f32 (*)(f32, f32, f32, f32))D_L39_0024A0D0)(arg0, arg1, arg2, arg3);
+    f32 b = ((f32 (*)(f32, f32, f32))D_L39_0024A0C8)(arg0, arg1, arg3);
+    return a * (arg4 - b);
+}
+/* localdecomp:end func_L39_006E0F78 */
 
 INCLUDE_ASM("asm/levels", func_L39_006E0FF8);
 
-INCLUDE_ASM("asm/levels", func_L39_006E1040);
+/* localdecomp:start func_L39_006E1040 */
+f32 func_L39_006E0FF8(s32, f32 *);
+double func_001321C8(f32);
+double func_00136CB0(double);
+void func_00131ED8(double);
+
+void func_L39_006E1040(s32 arg0, f32 *arg1) {
+    f32 mean = func_L39_006E0FF8(arg0, arg1);
+    f32 sum = 0.0f;
+    s32 i;
+    for (i = 0; i < arg0; i++) {
+        f32 d = arg1[i] - mean;
+        sum += d * d;
+    }
+    func_00131ED8(func_00136CB0(func_001321C8(sum / arg0)));
+}
+/* localdecomp:end func_L39_006E1040 */
 
 /* localdecomp:start func_L39_006E10D0 */
 s32 func_L39_006E10D0(u8 *arg0) {
@@ -133,11 +160,58 @@ s32 func_L39_006E1538(u32 arg0, u32 arg1) {
 }
 /* localdecomp:end func_L39_006E1538 */
 
-INCLUDE_ASM("asm/levels", func_L39_006E1558);
+/* localdecomp:start func_L39_006E1558 */
+s32 func_L39_006E1538(u32, u32);
+
+typedef struct {
+    s32 f0;
+    s32 f4;
+    u32 f8;
+    s32 fC;
+    u8 *f10;
+    s32 f14;
+    s32 f18;
+    u8 *f1C;
+} S_006E1558;
+
+s32 func_L39_006E1558(s32 arg0, s32 size, s32 arg2, s32 arg3) {
+    S_006E1558 *s = (S_006E1558 *)arg0;
+    u8 *cur;
+    u8 *prev;
+    s32 off;
+    u32 sz;
+    u32 arg1;
+
+    s->f4 = arg2;
+    s->fC = func_L39_006E1538(arg2, 4);
+    s->f8 = func_L39_006E1538(s->fC + 4, arg3);
+    s->f18 = 0;
+    off = func_L39_006E1538(arg0 + 0x20, arg3) - arg0;
+    cur = s->f10 = (u8 *)arg0 + off;
+    arg1 = size - off;
+    prev = 0;
+    sz = s->f8;
+    while (arg1 >= sz) {
+        u8 *next = cur + sz;
+        *(u8 **)(cur + s->fC) = next;
+        prev = cur;
+        cur = next;
+        arg1 -= s->f8;
+        s->f18++;
+        sz = s->f8;
+    }
+    s->f14 = s->f18;
+    if (prev != 0) {
+        *(u8 **)(prev + s->fC) = 0;
+    }
+    s->f1C = s->f10;
+    return arg0;
+}
+/* localdecomp:end func_L39_006E1558 */
 
 /* localdecomp:start func_L39_006E1648 */
 s32 func_L01_00521C90(s32, s32);
-void func_L39_006E1558(s32, s32, s32, s32);
+s32 func_L39_006E1558(s32, s32, s32, s32);
 
 void func_L39_006E1648(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     func_L39_006E1558(func_L01_00521C90(0x20, arg0), arg1, arg2, arg3);

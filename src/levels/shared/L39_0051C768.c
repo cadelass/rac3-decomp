@@ -2,110 +2,61 @@
 
 INCLUDE_ASM("asm/levels", func_L39_0051C768);
 
-INCLUDE_ASM("asm/levels", func_L39_0051CC68);
+/* localdecomp:start func_L39_0051CC68 */
+/* from rac2-decomp's func_L04_003F9C60 */
+typedef int Q_0051CC68 __attribute__((mode(TI)));
+typedef union { Q_0051CC68 q; f32 f[4]; } U_0051CC68;
+extern s32 func_L39_005B4398(s32);
+extern s32 func_L39_005B43C8(s32, s32);
+extern f32 func_L39_005B4410(f32, f32);
+extern void func_003CD250(void *);
+extern void func_0038CF68_0051CC68(void *, void *, f32);
+extern void func_L39_005C9A00(void *, void *, s32, s32, f32);
+extern u8 *func_L01_004669B0(void *, f32, f32, f32, f32, s32, void *, s32, s32);
 
-INCLUDE_ASM("asm/levels", func_L39_0051CEF8);
+void func_L39_0051CC68(u8 *m, s32 sparks) {
+    u8 **slot;
+    s32 i = 16, j, color, sign;
+    U_0051CC68 tmp;
+    s32 baseColor;
+    u8 *p, *d;
 
-INCLUDE_ASM("asm/levels", func_L39_0051DB38);
-
-INCLUDE_ASM("asm/levels", func_L39_0051DD30);
-
-/* localdecomp:start func_L39_0051E200 */
-extern s32 D_L39_0024D48C[];
-
-/* from rac4-decomp's func_004F4E58 */
-void func_L39_0051E200(void) {
-    s32 i;
-    s32 *p;
-    i = 0xF;
-    p = &D_L39_0024D48C[0];
-    do {
-        *p = 0;
-        i -= 1;
-        p -= 1;
-    } while (i >= 0);
-}
-/* localdecomp:end func_L39_0051E200 */
-
-/* localdecomp:start func_L39_0051E230 */
-extern s32 D_L39_0024D450[];
-
-s32 func_L39_0051E230(void) {
-    s32 i;
-    for (i = 0; i < 16; i++) {
-        if (D_L39_0024D450[i] == 0) {
-            return 0;
+    slot = (u8 **)(*(u8 **)(m + 0x68) + 0x1C);
+    for (; i >= 0; i--, slot++) {
+        if (*slot) func_003CD250(*slot);
+        *slot = 0;
+    }
+    if (sparks) {
+        U_0051CC68 v;
+        f32 *velocity = v.f;
+        for (i = 4; i >= 0; i--) {
+            v.q = 0;
+            v.f[0] = func_L39_005B4410(-1.0f, 1.0f);
+            v.f[1] = func_L39_005B4410(-1.0f, 1.0f);
+            v.f[2] = func_L39_005B4410(-1.0f, 1.0f);
+            tmp.q = v.q;
+            func_0038CF68_0051CC68(velocity, &tmp, func_L39_005B4410(0.060000002f, 0.120000005f));
+            func_L39_005C9A00(m + 0x10, velocity, 0x7F2F4F6F, func_L39_005B43C8(8, 12), 35000.0f);
         }
     }
-    return 1;
-}
-/* localdecomp:end func_L39_0051E230 */
-
-/* localdecomp:start func_L39_0051E268 */
-extern s32 D_L39_0024D490[];
-extern s32 D_L39_0024D450[];
-extern s32 D_L39_0024D490_b;
-void func_L39_0051E268(s32 a0) {
-    s32 n = D_L39_0024D490[0];
-    s32 i = 0;
-    s32 *p = D_L39_0024D450;
-    do {
-        if (*p == a0) {
-            *p = 0;
-            n--;
-            break;
+    j = 2;
+    baseColor = 0x606060;
+    for (;  j >= 0; j--) {
+        color = (func_L39_005B43C8(32, 128) << 24) | baseColor;
+        sign = func_L39_005B4398(2) ? -1 : 1;
+        tmp.q = 0;
+        tmp.f[2] = 1.0f;
+        tmp.f[3] = 1.0f;
+        tmp.f[2] = func_L39_005B4410(0.01f, 0.025f) * 1.2f;
+        p = func_L01_004669B0(m + 0x10, 0.2f, 1.0f, 1.02f, 140000.0f, sign, &tmp, color, 0);
+        if (p) {
+            d = p + 0x20;
+            *(s16 *)(p + 0xA) = (func_L39_005B43C8(50, 80) * 5 + 2) / 6;
+            *(s32 *)(d + 4) = 2;
+            d[0xA] = color >> 24;
+            d[0xB] = p[0xA];
+            if (func_L39_005B4398(2)) p[3] = 0x44;
         }
-        i++;
-        p++;
-    } while (i < 16);
-    D_L39_0024D490_b = n;
-}
-/* localdecomp:end func_L39_0051E268 */
-
-INCLUDE_ASM("asm/levels", func_L39_0051E2B0);
-
-INCLUDE_ASM("asm/levels", func_L39_0051E370);
-
-INCLUDE_ASM("asm/levels", func_L39_0051E9A8);
-
-INCLUDE_ASM("asm/levels", func_L39_0051EB38);
-
-INCLUDE_ASM("asm/levels", func_L39_0051ED58);
-
-INCLUDE_ASM("asm/levels", func_L39_0051EF98);
-
-/* localdecomp:start func_L39_0051F6B8 */
-typedef int u128_t __attribute__((mode(TI)));
-typedef union {
-    u128_t q;
-    f32 f[4];
-} Vec4;
-
-extern s32 func_L01_00457458(s32, s32);
-extern void func_003C2880(u8 *);
-
-void func_L39_0051F6B8(u8 *m) {
-    Vec4 v;
-    u8 *p;
-
-    if (m == 0) {
-        return;
-    }
-    if (m[32] == 254) {
-        return;
-    }
-    if (m[32] == 253) {
-        return;
-    }
-    p = *(u8 **)(m + 104);
-    if (p == 0) {
-        return;
-    }
-    if (!func_L01_00457458(*(s16 *)(m + 170), *(s32 *)(p + 40))) {
-        func_003C2880(m);
-    } else {
-        v.q = *(u128_t *)(m + 16);
-        v.f[3] = 2.0f;
     }
 }
-/* localdecomp:end func_L39_0051F6B8 */
+/* localdecomp:end func_L39_0051CC68 */
