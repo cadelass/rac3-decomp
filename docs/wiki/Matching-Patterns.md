@@ -895,6 +895,7 @@ Found while matching 20 functions of `src/levels/01_veldin/` and 20 shared level
 - **Switches:** write every consecutive case, even empty ones (`case 1: break;`), or gcc emits a compare chain instead of a jump table. Delete the `INCLUDE_RODATA` jtbl line after the function.
 - **Case order follows the jump table:** read the `jtbl` targets and write the cases in that order (`func_L01_005143C0`, `case 4,0,1,5,2,3`; 0..5 in order came out 0..5).
 - **`movz` from two compares:** a block-scoped `s32 is = (global == k);` plus `result = (field == v) & is;` gives `movz` and fixes the `xori`/`sltiu` pair (`func_L01_005143C0`); `&&` or `?:` branch instead.
+- **Two s32 array stores before the sh/sb stores** across global arrays: the first reuses the index shift's register and the second takes a fresh one, settling the address scheduling (`func_L01_0042D798`, 15 -> 10 diffs).
 
 ### Arguments and constants
 
@@ -916,7 +917,7 @@ Found while matching 20 functions of `src/levels/01_veldin/` and 20 shared level
 - An unsigned loop counter keeps gcc from reversing the loop but emits `sltiu` where retail has `slti` (`func_L01_002FD818`, `func_L01_00319718`, 1 diff). The reversal is strength_reduce's `check_dbra_loop` (`no_use_except_counting`: pure counter, signed `LT`, `+1`); any real use of `i` in the body blocks it but turns the pointers into an end-pointer loop (77+ diffs). `-fno-strength-reduce` makes `func_L01_00319718` match with the signed C, but a flag that exists for one function is not allowed (docs/build/build-fidelity.md rule 5), so it stays a near miss.
 - Two strength-reduced giv inits in a preheader are scheduled in the order that puts flow2's `REG_DEAD` on the wrong giv (`func_L01_0030AA38`, 2 diffs).
 - A pointer copied in a loop and reloaded after it is one global pseudo; a fresh copy after the loop merges with its consumer and cascades the allocation (`func_L01_00326898`, 5 diffs).
-- local-alloc rematerialises a one-instruction literal inside the branch block (`func_L01_00318AF8`, 14 diffs) and decides integer-quantity-0 pseudos through an unstable qsort tie (`func_L01_0042D798`, 15 diffs).
+- local-alloc rematerialises a one-instruction literal inside the branch block (`func_L01_00318AF8`, 14 diffs) and decides integer-quantity-0 pseudos through an unstable qsort tie (`func_L01_0042D798`, 10 diffs).
 - A result pseudo in `$a0` with a final `move`, and a shared `return 1` block that cross-jumping folds to the top (`func_L01_005002B8`, 9 diffs); an `mfc1`+`daddu` temporary that drops `value` below `vars` in priority (`func_L01_003291D0`, 17 diffs).
 - A loop-invariant `0.0` reloaded at the loop tail by retail now rematerialises (reassign `zero = 0.0f;` at the end of the body), but takes `$f1` where retail uses `$f2`, which the `(f32)seg` temporary holds (`func_L01_003ABD60`, 8 diffs); the clamp value and its two limits move registers together (`func_L01_004F3F40`, 77 diffs).
 - A `while` whose first test is register-only moves the loop head behind the test (`func_L01_003A6DA8`, 39 diffs).
