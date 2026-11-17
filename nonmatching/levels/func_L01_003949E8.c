@@ -1,4 +1,5 @@
 /* PAL near miss (Codex wave 6): near miss: 3 words differ with the file's flags.
+ * Retry 2026-11-17: writing kind through the container (`m->vars->kind`) and copying position through a local s128 keep the same 3 diffs (sw before lq, $v0 against $v1).
  * Worker's note: Best 3 word diff, same size; w279/func_L01_003949E8.base.log. Direction lq after kind store and v0 versus v1. Three distinct reorder/local/inline forms reproduced identical 4-diff allocation; stopped.
  */
 #include "common.h"

@@ -1,3 +1,6 @@
+/* PAL near miss (Codex wave 7): 13 words differ with the file's flags.
+ * Retry 2026-11-17: `while (zero < remaining)` gives 67 diffs and all-literal 0.0f sites 59; the 13-diff form stands.
+ */
 #include "common.h"
 
 typedef struct { s32 count; u8 pad[0x18]; f32 length; } Path_003ABD60;

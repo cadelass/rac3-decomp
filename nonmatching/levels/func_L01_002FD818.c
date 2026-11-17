@@ -1,4 +1,5 @@
 /* PAL near miss (Codex wave 4): near miss: 1 words differ with the file's flags.
+ * Retry 2026-11-17: a signed counter with do/while or with the doc's `if (3 > i)` guard still reverses the loop (15 diffs); the unsigned form keeps count-up but emits sltiu. The 1-diff form stands; the signed-immediate count-up is not reachable here.
  * Worker's note: sister build/codex/pool/X4/pal_func_L01_002FD818_rac2.c; best log build/codex/w184/func_L01_002FD818-04.log; 1 diff: unsigned counter prevents countdown, but emits sltiu where retail uses slti; assigned flags verified
  */
 /* SPDX-License-Identifier: MIT

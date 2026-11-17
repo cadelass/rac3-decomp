@@ -1,4 +1,5 @@
 /* PAL near miss (Codex wave 6): near miss: 5 words differ with the file's flags.
+ * Retry 2026-11-17: inlining the loop's pointer load gives 56 diffs (the documented cascade); the 5-diff form stands.
  * Worker's note: 5 diff; final vars/index register allocation; index reuse and typed struct member forms unchanged; stop after three wordings with identical wrong bytes; log build/codex/w264/func_L01_00326898.02.log
  */
 #include "common.h"
