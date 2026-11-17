@@ -896,6 +896,8 @@ Found while matching 20 functions of `src/levels/01_veldin/` and 20 shared level
 - **Case order follows the jump table:** read the `jtbl` targets and write the cases in that order (`func_L01_005143C0`, `case 4,0,1,5,2,3`; 0..5 in order came out 0..5).
 - **`movz` from two compares:** a block-scoped `s32 is = (global == k);` plus `result = (field == v) & is;` gives `movz` and fixes the `xori`/`sltiu` pair (`func_L01_005143C0`); `&&` or `?:` branch instead.
 - **Two s32 array stores before the sh/sb stores** across global arrays: the first reuses the index shift's register and the second takes a fresh one, settling the address scheduling (`func_L01_0042D798`, 15 -> 10 diffs).
+- **A read-only loop that reloads its pointer after the loop:** do not cache `*vars` in a `next` local. Read `*vars` in the break test and again in the step (`if (*vars == -1) break; moby = base + (*vars << 8);`) so `vars` stays a global pseudo across the `if` while `gcse` puts `*vars` in the same register; the post-loop read can then stay inline without cascading the loop's allocation (`func_L01_00326898`).
+- **A descending loop over two derived pointers:** initialise `position = base + off` before the `for (i = N; i >= 0; position += stride, i--)` and keep `entry = &table[N - i]` a giv inside the body. `position` then gets an earlier LUID than `i = N`, `entry` keeps `REG_DEAD(base)` in the preheader, the increment order is `[position += stride, entry += stride, i--]`, and the eliminated intermediate biv leaves an empty post-loop block that stops sched1 merging the loop's blocks into one region (`func_L01_0030AA38`).
 
 ### Arguments and constants
 
@@ -907,7 +909,8 @@ Found while matching 20 functions of `src/levels/01_veldin/` and 20 shared level
 - **Float constants:** declare them without an initialiser and assign them in the retail order; the `li.s` order follows the assignments while the registers follow the declarations (`func_L01_002FC910`).
 - **`@ps2as` is per file** and also moves every `INCLUDE_ASM` block of that file to GNU as; check the neighbours (`L01_00356588.c` breaks). It was needed for `L01_003E32F8.c` and `L01_0035B710.c`.
 - **A loop-invariant float constant that retail reloads at the loop tail:** reassign it at the end of the loop body (`zero = 0.0f;`) and test the reassigned variable (`while (zero < remaining)`); the tail then rematerialises instead of reusing a still-live register (`func_L01_003ABD60`, 13 -> 8 diffs).
-- **Name a hoisted literal as a local to lengthen its live range:** `u16 empty = 0xFFFF;` makes the first loop's mask live longer (30 vs 26 luids) and lowers its priority below `ready` (0.333 vs 0.341), fixing the `$s3`/`$s4` pair (`func_L01_004226C8`, 10 -> 2 diffs); a literal in the second loop's condition is folded and cannot be named.
+- **Name a hoisted literal as a local to lengthen its live range:** `u16 empty = 0xFFFF;` makes the first loop's mask live longer (30 vs 26 luids) and lowers its priority below `ready` (0.333 vs 0.341), fixing the `$s3`/`$s4` pair (`func_L01_004226C8`).
+- **Two invariant `0xFFFF` constants around a loop:** name only the condition's constant (`s32 none = 0xFFFF;`) and leave the store's as a literal (`D[31] = 0xFFFF;`). Naming both lets `cse2` swap the two loop bases; naming neither lets `combine_movables` fold the HImode store into the SImode compare; one named and one literal keeps `none` out of `combine_movables`, and the first `loop.c` pass hoists the store's literal after it, which is retail's `$t1`/`$t2` (`func_L01_004226C8`).
 
 ### Open problems (drafts in `nonmatching/levels/`)
 
@@ -915,13 +918,10 @@ Found while matching 20 functions of `src/levels/01_veldin/` and 20 shared level
 - gcc coalesces `n = i + 1` into `i` where retail keeps two registers (`func_L01_0049CD08`, `func_L01_0049BBD8`).
 - Argument-move scheduling and one `ori` position (`func_L01_003B1128`; `func_L01_003D9428` matches now), saved-register rotation (`func_L01_003E36E8`), jump-table address build (`func_L01_003E1CD0`), loop hoisting (`func_L01_00356748`).
 - An unsigned loop counter keeps gcc from reversing the loop but emits `sltiu` where retail has `slti` (`func_L01_002FD818`, `func_L01_00319718`, 1 diff). The reversal is strength_reduce's `check_dbra_loop` (`no_use_except_counting`: pure counter, signed `LT`, `+1`); any real use of `i` in the body blocks it but turns the pointers into an end-pointer loop (77+ diffs). `-fno-strength-reduce` makes `func_L01_00319718` match with the signed C, but a flag that exists for one function is not allowed (docs/build/build-fidelity.md rule 5), so it stays a near miss.
-- Two strength-reduced giv inits in a preheader are scheduled in the order that puts flow2's `REG_DEAD` on the wrong giv (`func_L01_0030AA38`, 2 diffs).
-- A pointer copied in a loop and reloaded after it is one global pseudo; a fresh copy after the loop merges with its consumer and cascades the allocation (`func_L01_00326898`, 5 diffs).
 - local-alloc rematerialises a one-instruction literal inside the branch block (`func_L01_00318AF8`, 14 diffs) and decides integer-quantity-0 pseudos through an unstable qsort tie (`func_L01_0042D798`, 10 diffs).
 - A result pseudo in `$a0` with a final `move`, and a shared `return 1` block that cross-jumping folds to the top (`func_L01_005002B8`, 9 diffs); an `mfc1`+`daddu` temporary that drops `value` below `vars` in priority (`func_L01_003291D0`, 17 diffs).
 - A loop-invariant `0.0` reloaded at the loop tail by retail now rematerialises (reassign `zero = 0.0f;` at the end of the body), but takes `$f1` where retail uses `$f2`, which the `(f32)seg` temporary holds (`func_L01_003ABD60`, 8 diffs); the clamp value and its two limits move registers together (`func_L01_004F3F40`, 77 diffs).
 - A `while` whose first test is register-only moves the loop head behind the test (`func_L01_003A6DA8`, 39 diffs).
-- Two loop-invariant `0xFFFF` constants around a loop take the opposite materialisation order (`func_L01_004226C8`, 2 diffs).
 - VU0 code interleaved with ordinary instructions matches only with per-instruction volatile asm and a scheduling lever, which the rules do not allow; the single-block form stays 19 diffs (`func_L01_003EB5E0`).
 - `sq`/`lq` saves need `config/levels/sq_ra_funcs.txt` and a file without `-fopt-stack`, so a function that shares its file with C that needs the flag is held (`func_L01_0035F340`, `func_L01_0038B9A8`, `func_L01_00409428`, `func_L01_00465738`, `func_L01_00447718`); split-address mode S has the same file-boundary problem (`func_L01_0044FC48`).
 
