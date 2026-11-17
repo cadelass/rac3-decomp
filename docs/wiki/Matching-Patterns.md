@@ -914,7 +914,6 @@ Found while matching 20 functions of `src/levels/01_veldin/` and 20 shared level
 - An unsigned loop counter keeps gcc from reversing the loop but emits `sltiu` where retail has `slti` (`func_L01_002FD818`, `func_L01_00319718`, 1 diff).
 - Two strength-reduced giv inits in a preheader are scheduled in the order that puts flow2's `REG_DEAD` on the wrong giv (`func_L01_0030AA38`, 2 diffs).
 - A pointer copied in a loop and reloaded after it is one global pseudo; a fresh copy after the loop merges with its consumer and cascades the allocation (`func_L01_00326898`, 5 diffs).
-- `lq`/`sq` copies and an adjacent `sw` are ordered by a sched1 tie whose two demands cannot both hold (`func_L01_003949E8`, 3 diffs).
 - local-alloc rematerialises a one-instruction literal inside the branch block (`func_L01_00318AF8`, 14 diffs) and decides integer-quantity-0 pseudos through an unstable qsort tie (`func_L01_0042D798`, 15 diffs).
 - A result pseudo in `$a0` with a final `move`, and a shared `return 1` block that cross-jumping folds to the top (`func_L01_005002B8`, 9 diffs); an `mfc1`+`daddu` temporary that drops `value` below `vars` in priority (`func_L01_003291D0`, 17 diffs).
 - A loop-invariant `0.0` that retail reloads at the loop tail stays in another register here (`func_L01_003ABD60`, 13 diffs); the clamp value and its two limits move registers together (`func_L01_004F3F40`, 77 diffs).
