@@ -905,6 +905,8 @@ Found while matching 20 functions of `src/levels/01_veldin/` and 20 shared level
 - **Assignment chain direction:** `byte = u16 = 255` shares one `addiu` for both stores; `u16 = byte = 255` emits two and shifts the block (`func_L01_003E0058`). For two separate `0xFF` constants, write the byte store before the halfword store (`func_L01_0031C1D0`).
 - **Float constants:** declare them without an initialiser and assign them in the retail order; the `li.s` order follows the assignments while the registers follow the declarations (`func_L01_002FC910`).
 - **`@ps2as` is per file** and also moves every `INCLUDE_ASM` block of that file to GNU as; check the neighbours (`L01_00356588.c` breaks). It was needed for `L01_003E32F8.c` and `L01_0035B710.c`.
+- **A loop-invariant float constant that retail reloads at the loop tail:** reassign it at the end of the loop body (`zero = 0.0f;`) and test the reassigned variable (`while (zero < remaining)`); the tail then rematerialises instead of reusing a still-live register (`func_L01_003ABD60`, 13 -> 8 diffs).
+- **Name a hoisted literal as a local to lengthen its live range:** `u16 empty = 0xFFFF;` makes the first loop's mask live longer (30 vs 26 luids) and lowers its priority below `ready` (0.333 vs 0.341), fixing the `$s3`/`$s4` pair (`func_L01_004226C8`, 10 -> 2 diffs); a literal in the second loop's condition is folded and cannot be named.
 
 ### Open problems (drafts in `nonmatching/levels/`)
 
@@ -916,8 +918,9 @@ Found while matching 20 functions of `src/levels/01_veldin/` and 20 shared level
 - A pointer copied in a loop and reloaded after it is one global pseudo; a fresh copy after the loop merges with its consumer and cascades the allocation (`func_L01_00326898`, 5 diffs).
 - local-alloc rematerialises a one-instruction literal inside the branch block (`func_L01_00318AF8`, 14 diffs) and decides integer-quantity-0 pseudos through an unstable qsort tie (`func_L01_0042D798`, 15 diffs).
 - A result pseudo in `$a0` with a final `move`, and a shared `return 1` block that cross-jumping folds to the top (`func_L01_005002B8`, 9 diffs); an `mfc1`+`daddu` temporary that drops `value` below `vars` in priority (`func_L01_003291D0`, 17 diffs).
-- A loop-invariant `0.0` that retail reloads at the loop tail stays in another register here (`func_L01_003ABD60`, 13 diffs); the clamp value and its two limits move registers together (`func_L01_004F3F40`, 77 diffs).
+- A loop-invariant `0.0` reloaded at the loop tail by retail now rematerialises (reassign `zero = 0.0f;` at the end of the body), but takes `$f1` where retail uses `$f2`, which the `(f32)seg` temporary holds (`func_L01_003ABD60`, 8 diffs); the clamp value and its two limits move registers together (`func_L01_004F3F40`, 77 diffs).
 - A `while` whose first test is register-only moves the loop head behind the test (`func_L01_003A6DA8`, 39 diffs).
+- Two loop-invariant `0xFFFF` constants around a loop take the opposite materialisation order (`func_L01_004226C8`, 2 diffs).
 - VU0 code interleaved with ordinary instructions matches only with per-instruction volatile asm and a scheduling lever, which the rules do not allow; the single-block form stays 19 diffs (`func_L01_003EB5E0`).
 - `sq`/`lq` saves need `config/levels/sq_ra_funcs.txt` and a file without `-fopt-stack`, so a function that shares its file with C that needs the flag is held (`func_L01_0035F340`, `func_L01_0038B9A8`, `func_L01_00409428`, `func_L01_00465738`, `func_L01_00447718`); split-address mode S has the same file-boundary problem (`func_L01_0044FC48`).
 

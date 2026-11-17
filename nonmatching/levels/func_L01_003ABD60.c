@@ -1,5 +1,8 @@
-/* PAL near miss (Codex wave 7): 13 words differ with the file's flags.
- * Retry 2026-11-17: `while (zero < remaining)` gives 67 diffs and all-literal 0.0f sites 59; the 13-diff form stands.
+/* PAL near miss (Codex wave 8): near miss: 8 words differ with the file's flags.
+ * Best form (2026-11-17): reassigning `zero = 0.0f;` at the end of the loop body
+ * makes the do/while tail reload it (`while (zero < remaining)`); 13 -> 8 diffs.
+ * The 8 left are the register number only: retail keeps zero in $f2, this form
+ * gets $f1 because the (f32)seg temporary of the else branch holds $f2.
  */
 #include "common.h"
 
@@ -38,6 +41,7 @@ f32 func_L01_003ABD60(u8 *object, Path_003ABD60 *path, s32 *index, f32 position,
                 remaining = 0.0f;
             }
         }
-    } while (0.0f < remaining);
+        zero = 0.0f;
+    } while (zero < remaining);
     return position;
 }

@@ -1090,7 +1090,7 @@ function NTSC-U has and src/us/ has no C for.
 | `func_L01_003A94A8` | levels | Codex wave 8 near miss | near miss: 205 words differ with the file's flags |
 | `func_L01_003AA120` | levels | Codex wave 8 near miss | near miss: 304 words differ with the file's flags |
 | `func_L01_003AB790` | levels | Codex wave 8 near miss | near miss: 8 words differ with the file's flags |
-| `func_L01_003ABD60` | levels | Codex wave 8 near miss | near miss: 13 words; the loop-invariant 0.0 is not reloaded at the loop tail (gcc keeps it in another register) and the FPR pair of the clamp swaps |
+| `func_L01_003ABD60` | levels | Codex wave 8 near miss | near miss: 8 words; reassigning `zero = 0.0f;` at the end of the loop body makes the tail reload it, but it still takes $f1 against retail's $f2 (the `(f32)seg` temporary holds $f2) |
 | `func_L01_003B2DE8` | levels | NTSC-U draft of `func_L01_003B1618` (Codex wave 3) | near miss: 90 words differ on NTSC-U with the file's flags (NTSC-U twin `func_L01_003B1618`, whose code is not the PAL one) |
 | `func_L01_003B36A8` | levels | NTSC-U draft of `func_L01_003B1EB0` (Codex wave 3) | near miss: 274 words differ on NTSC-U with the file's flags (NTSC-U twin `func_L01_003B1EB0`, whose code is not the PAL one) |
 | `func_L01_003B3C48` | levels | NTSC-U draft of `func_L01_003B2450` (Codex wave 3) | near miss: 182 words differ on NTSC-U with the file's flags (NTSC-U twin `func_L01_003B2450`, whose code is not the PAL one) |
@@ -1146,7 +1146,7 @@ function NTSC-U has and src/us/ has no C for.
 | `func_L01_00409428` | levels | Codex wave 8 near miss | the body is exact; matches with the func_L01_00409428 line in config/levels/sq_ra_funcs.txt and its file without -fopt-stack (20 saves/restores otherwise) |
 | `func_L01_00409658` | levels | Codex wave 6 near miss | near miss: 189 words differ with the file's flags |
 | `func_L01_0040B858` | levels | NTSC-U draft of `func_L01_00409448` (Codex wave 3) | near miss: 222 words differ on NTSC-U with the file's flags (NTSC-U twin `func_L01_00409448`, whose code is not the PAL one) |
-| `func_L01_004226C8` | levels | Codex wave 7 near miss | near miss: 10 words; two near-tied priorities (ready 0.341 vs the 0xFFFF mask 0.385) and the two 0xFFFF literals of the second loop swap registers |
+| `func_L01_004226C8` | levels | Codex wave 7 near miss | near miss: 2 words; naming the first loop's 0xFFFF as `u16 empty` lengthens its live range and fixes the ready/mask pair, but the second loop's folded condition literal and the `e` store still swap $t1/$t2 |
 | `func_L01_0042CE68` | levels | Codex wave 7 near miss | near miss: 25 words differ with the file's flags |
 | `func_L01_0042D110` | levels | Codex wave 7 near miss | near miss: 49 words differ with the file's flags |
 | `func_L01_0042D3A8` | levels | Codex wave 7 near miss | near miss: 255 words differ with the file's flags |
