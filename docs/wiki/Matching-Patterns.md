@@ -945,6 +945,7 @@ Found while matching 20 functions of `src/levels/01_veldin/` and 20 shared level
   Existing j-form helpers require a separately proven whole-file VU flag decision.
   Full ten-function retry evidence is in
   [the shared retry report](../research/level01-shared-nonmatching-20261117.md).
+- `lq`/`sq` copies and an adjacent `sw` are ordered by a sched1 tie whose two demands cannot both hold (`func_L01_003949E8`, 3 diffs).
 
 ## Patterns from level 2 (Florana, PAL)
 
