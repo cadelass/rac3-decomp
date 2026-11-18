@@ -244,7 +244,26 @@ s32 func_L01_00459D18(void) {
 
 LINKER_REMNANT("asm/levels", func_L01_00459E10);
 
-INCLUDE_ASM("asm/levels", func_L01_00459EF0);
+/* localdecomp:start func_L01_00459EF0 */
+extern s32 D_L01_001D6690;
+extern s32 D_L01_001D545C_00459EF0;
+extern s32 D_L01_001DFB90;
+void func_L01_00459EF0(void) {
+    extern void func_L01_00415DC8_00459EF0(s32);
+    if ((u32)(D_L01_001D6690 - 3) < 2) {
+        switch (D_L01_001D545C_00459EF0) {
+        case 11: break;
+        case 18:
+        case 20:
+        case 26:
+        case 29:
+            D_L01_001DFB90 = 2;
+            break;
+        }
+        func_L01_00415DC8_00459EF0(D_L01_001DFB90);
+    }
+}
+/* localdecomp:end func_L01_00459EF0 */
 
 INCLUDE_ASM("asm/levels", func_L01_00459F60);
 

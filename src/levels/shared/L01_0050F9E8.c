@@ -1697,7 +1697,37 @@ void func_L01_00514720(s32 *dst) {
 }
 /* localdecomp:end func_L01_00514720 */
 
-INCLUDE_ASM("asm/levels", func_L01_00514750);
+/* localdecomp:start func_L01_00514750 */
+typedef struct {
+    u8 pad0[0x25F8];
+    s32 hand_item_request[4];
+} HeroRequests_00514750;
+extern HeroRequests_00514750 D_001A4BE0_00514750;
+extern s32 D_001D4C40_00514750[4] __attribute__((section(".sdata")));
+static __inline__ s32 *button_addr_00514750(HeroRequests_00514750 *hero) {
+    return hero->hand_item_request;
+}
+s32 func_L01_00514750(s32 *input) {
+    s32 changed;
+    s32 fallback;
+    s32 *dest;
+    s32 *previous;
+    s32 i;
+    changed = 0;
+    fallback = 0xCC;
+    dest = button_addr_00514750(&D_001A4BE0_00514750);
+    previous = D_001D4C40_00514750;
+    i = 3;
+    for(;i>=0;i--) {
+        if(*previous!=*input) {
+            changed=1;
+            *dest=*input ? *input : fallback;
+        }
+        dest++;input++;previous++;
+    }
+    return changed;
+}
+/* localdecomp:end func_L01_00514750 */
 
 /* localdecomp:start func_L01_005147A8 */
 extern u8 D_001427AB[];

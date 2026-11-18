@@ -1,3 +1,7 @@
+/* Resolved historical draft (2026-11-17): integrated in shared source;
+ * every affected PAL level builds to MATCH. This old draft is retained
+ * for provenance, is not linked, and its score below is historical.
+ * See docs/research/level01-shared-nonmatching-20261117.md. */
 /* PAL near miss (Codex wave 6): near miss: 5 words differ with the file's flags.
  * Worker's note: Improved 6 to 5 instruction differences: inline address helper preserves separate hero-base la and +0x25F8. Remaining prologue scheduling puts previous-pointer la before fallback constant/destination addition. Loop helper, fallback parameter and address-only ...
  */

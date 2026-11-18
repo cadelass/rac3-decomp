@@ -925,6 +925,27 @@ Found while matching 20 functions of `src/levels/01_veldin/` and 20 shared level
 - VU0 code interleaved with ordinary instructions matches only with per-instruction volatile asm and a scheduling lever, which the rules do not allow; the single-block form stays 19 diffs (`func_L01_003EB5E0`).
 - `sq`/`lq` saves need `config/levels/sq_ra_funcs.txt` and a file without `-fopt-stack`, so a function that shares its file with C that needs the flag is held (`func_L01_0035F340`, `func_L01_0038B9A8`, `func_L01_00409428`, `func_L01_00465738`, `func_L01_00447718`); split-address mode S has the same file-boundary problem (`func_L01_0044FC48`).
 
+- **Shared retry: moved data and a divergent callee need separate caller aliases.**
+  `func_L01_00459EF0` now uses `D_L01_001D545C_00459EF0` and
+  `func_L01_00415DC8_00459EF0`: the former moves to `0x002412DC` in multiplayer,
+  and level 39 calls `0x00598770` instead of the catalogue callee's `0x004E51B0`.
+  This applies "Aliases for per-level callees and data" above, without a catalogue
+  edit; all 49 PAL placements build to `MATCH`.
+- **Shared retry: explicit invariant initialization resolves a five-word prologue.**
+  `func_L01_00514750` names `fallback = 0xCC` before computing the destination,
+  followed by the previous-input pointer and counter. This applies "Init order before
+  a loop" under Known open problems; a `.sdata` alias alone was identical to the
+  old draft. All 34 placements build to `MATCH`, with unchanged file flags.
+- **Shared VU drafts still open:** `func_L01_0037F860` has two raw differences
+  after its verified `divs_nops` row `2`: the legal unified block reverses `sqc2`
+  and the decrement. The old implicit `vf2` state across separate asm blocks was
+  not an accepted match. `func_L01_003E9218` improves from a compile error to 11
+  differences after restoring both the vector pointer and independent float
+  pass-through; the later owner prototype and VU interleaving remain unresolved.
+  Existing j-form helpers require a separately proven whole-file VU flag decision.
+  Full ten-function retry evidence is in
+  [the shared retry report](../research/level01-shared-nonmatching-20261117.md).
+
 ## Patterns from level 2 (Florana, PAL)
 
 Found while matching 23 functions of `src/levels/02_florana/`. Names are catalogue names (`func_L02_XXXXXXXX`).

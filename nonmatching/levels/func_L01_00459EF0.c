@@ -1,3 +1,7 @@
+/* Resolved historical draft (2026-11-17): integrated in shared source;
+ * every affected PAL level builds to MATCH. This old draft is retained
+ * for provenance, is not linked, and its score below is historical.
+ * See docs/research/level01-shared-nonmatching-20261117.md. */
 /* PAL near miss (Codex wave 6): near miss: 0 words differ with the file's flags.
  * Worker's note: Improved to 48/49 PAL places MATCH by naming moved level-state data D_L01_001D545C_00459EF0. Only level39 jal at +0x58 differs: catalogue func_L01_00415DC8 is 0x004E51B0; retail calls func_L39_00598770. Requires call placement mapping correction. Logs ...
  */
